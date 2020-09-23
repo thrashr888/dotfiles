@@ -1,0 +1,58 @@
+[user]
+	name = Paul Thrasher
+	email = thrashr888@gmail.com
+
+[github]
+	user = thrashr888
+[credential]
+	helper = osxkeychain
+[push]
+	default = current
+[core]
+	excludesfile = /Users/thrashr888/.gitignore_global
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[diff]
+	renameLimit = 15000
+	noprefix = true
+
+[alias]
+	s = status
+	p = pull
+	prb = pull --rebase
+	a = add .
+	c = commit
+	co = checkout
+	cm = checkout master
+	c- = checkout -
+	sp = stash && git pull && git stash pop
+	bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+	bdone = "!f() { git checkout ${1-master} && git up && git clean ${1-master}; }; f"
+	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	git = !git
+
+[url "git://github.com/"]
+	insteadOf = "github:"
+#[url "git@github.com:hashicorp/"]
+#	insteadOf = https://github.com/hashicorp/
+
+[includeIf "gitdir:~/hashicorp/"]
+    path = .gitconfig-work
+[includeIf "gitdir:~/go/src/github.com/hashicorp/"]
+    path = .gitconfig-work
+
+[includeIf "gitdir:~/go/"]
+    path = .gitconfig-play
+[includeIf "gitdir:~/workspace/"]
+    path = .gitconfig-play
+[includeIf "gitdir:~/src/"]
+    path = .gitconfig-play
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = true
